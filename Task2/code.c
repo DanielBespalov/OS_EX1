@@ -11,8 +11,8 @@ unsigned long long factorial(int n) {
 }
 
 
-double poissonProbability(int k, double lambda) {
-    return exp(-lambda) * pow(lambda, k) / factorial(k);
+long double poissonProbability(int k, long double lambda) {
+    return expl(-lambda) * powl(lambda, k) / factorial(k);
 }
 
 int main(int argc, char* argv[]) {
@@ -21,12 +21,12 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    double lambda = atof(argv[1]);
+    long double lambda = atof(argv[1]);
     int k = atoi(argv[2]);
 
-    double px = poissonProbability(k, lambda);
+    long double px = poissonProbability(k, lambda);
 
-    printf("%.17lf\n", px);
+    printf("%.17Lf\n", px);
 
     return 0;
 }
