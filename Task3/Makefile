@@ -1,7 +1,9 @@
 CC = gcc
+
 CFLAGS = -fPIC
 LDFLAGS = -shared
 LIB_NAME = libpoisson.so
+
 
 all: $(LIB_NAME) main
 
