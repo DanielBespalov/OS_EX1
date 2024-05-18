@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -w 
+CFLAGS = -Wall -w -g
 
 Poisson: Poisson.o
 	$(CC) $(CFLAGS) -o $@ $^ -lm
