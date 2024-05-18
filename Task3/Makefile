@@ -1,11 +1,23 @@
 CC = gcc
-CFLAGS = -Wall -w -g
 
-Poisson: Poisson.o
-	$(CC) $(CFLAGS) -o $@ $^ -lm
+CFLAGS = -fPIC
+LDFLAGS = -shared
+LIB_NAME = libpoisson.so
+
+
+all: $(LIB_NAME) main
+
+$(LIB_NAME): Poisson.o
+	$(CC) $(LDFLAGS) -o $@ $^ -lm
 
 Poisson.o: Poisson.c
 	$(CC) $(CFLAGS) -c $<
 
+main: Main.o $(LIB_NAME)
+	$(CC) -o $@ Main.o -L. -lpoisson -lm -Wl,-rpath,.
+
+Main.o: Main.c
+	$(CC) $(CFLAGS) -c $<
+
 clean:
-	rm -f Poisson *.o
+	rm -f $(LIB_NAME) main *.o
