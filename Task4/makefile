@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -w 
+CFLAGS = -Wall -w -g
 
 q4: q4.o
 	$(CC) $(CFLAGS) -o $@ $^ -lm
