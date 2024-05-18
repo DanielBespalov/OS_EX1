@@ -84,7 +84,7 @@ void dijkstra(int graph[V][V], int src)
 // Function to read graph from stdin
 bool readGraph(int graph[V][V])
 {
-    printf("Enter the adjacency matrix for the graph (9x9) or type 'exit' to quit:\n");
+    printf("Enter the adjacency matrix for the graph (%dx%d) or type 'exit' to quit:\n",V, V);
 
     for (int i = 0; i < V; i++) {
         for (int j = 0; j < V; j++) {
