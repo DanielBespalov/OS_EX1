@@ -7,37 +7,44 @@
 // A utility function to find the vertex with minimum
 // distance value, from the set of vertices not yet included
 // in shortest path tree
-int minDistance(int dist[], bool sptSet[], int V)
+int minDistance(long dist[], bool sptSet[], int V)
 {
     // Initialize min value
-    int min = INT_MAX, min_index;
+    long min = LONG_MAX;
+    int min_index;
 
-    for (int v = 0; v < V; v++)
-        if (sptSet[v] == false && dist[v] <= min)
-            min = dist[v], min_index = v;
+    for (int v = 0; v < V; v++) {
+        if (sptSet[v] == false && dist[v] <= min) {
+            min = dist[v];
+            min_index = v;
+        }
+    }
 
     return min_index;
 }
 
 // A utility function to print the constructed distance array
-void printSolution(int dist[], int V)
+void printSolution(long dist[], int V)
 {
     printf("Vertex \t\t Distance from Source\n");
-    for (int i = 0; i < V; i++)
-        printf("%d \t\t\t\t %d\n", i, dist[i]);
+    for (int i = 0; i < V; i++) {
+        printf("%d \t\t\t\t %ld\n", i, dist[i]);
+    }
 }
 
 // Function that implements Dijkstra's single source shortest path algorithm
 // for a graph represented using adjacency matrix representation
 void dijkstra(int** graph, int src, int V)
 {
-    int dist[V]; // The output array.  dist[i] will hold the shortest distance from src to i
+    long dist[V]; // The output array.  dist[i] will hold the shortest distance from src to i
 
     bool sptSet[V]; // sptSet[i] will be true if vertex i is included in shortest path tree or shortest distance from src to i is finalized
 
     // Initialize all distances as INFINITE and sptSet[] as false
-    for (int i = 0; i < V; i++)
-        dist[i] = INT_MAX, sptSet[i] = false;
+    for (int i = 0; i < V; i++) {
+        dist[i] = LONG_MAX;
+        sptSet[i] = false;
+    }
 
     // Distance of source vertex from itself is always 0
     dist[src] = 0;
@@ -51,10 +58,12 @@ void dijkstra(int** graph, int src, int V)
         sptSet[u] = true;
 
         // Update dist value of the adjacent vertices of the picked vertex.
-        for (int v = 0; v < V; v++)
+        for (int v = 0; v < V; v++) {
             // Update dist[v] only if is not in sptSet, there is an edge from u to v, and total weight of path from src to v through u is smaller than current value of dist[v]
-            if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX && dist[u] + graph[u][v] < dist[v])
+            if (!sptSet[v] && graph[u][v] && dist[u] != LONG_MAX && dist[u] + graph[u][v] < dist[v]) {
                 dist[v] = dist[u] + graph[u][v];
+            }
+        }
     }
 
     // print the constructed distance array
@@ -78,7 +87,7 @@ bool readGraph(int** graph, int V)
             }
             char *endptr;
             long value = strtol(input, &endptr, 10);
-            if (*endptr != '\0' || value < 0 || value > INT_MAX) {
+            if (*endptr != '\0' || value < 0 || value > LONG_MAX) {
                 fprintf(stderr, "Invalid input. Please enter non-negative integers only.\n");
                 return false;
             }
@@ -87,7 +96,6 @@ bool readGraph(int** graph, int V)
     }
     return true;
 }
-
 
 // Function to allocate memory for the graph
 int** allocateGraph(int V)
