@@ -6,6 +6,6 @@ run_kkkk:
 	./q5 25 10000 
 
 q5: q5.o 
-	gcc -o q5 q5.o 
+	gcc -pg -o q5 q5.o 
 q5.o: q5.c 
-	gcc -c q5.c
+	gcc -pg -c q5.c
