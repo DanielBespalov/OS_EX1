@@ -1,7 +1,7 @@
         -:    0:Source:Q4.c
         -:    0:Graph:Q4.gcno
         -:    0:Data:Q4.gcda
-        -:    0:Runs:2
+        -:    0:Runs:1
         -:    1:#include <limits.h>
         -:    2:#include <stdbool.h>
         -:    3:#include <stdio.h>
@@ -70,65 +70,64 @@
         8:   66:        for (int j = 0; j < V; j++) {
         -:   67:            char input[20];
         6:   68:            if (scanf("%s", input) != 1) {
-    #####:   69:                fprintf(stderr, "Invalid input. Please enter integers only.\n");
-       2*:   70:                return false;
-        -:   71:            }
-        -:   72:            char *endptr;
-        6:   73:            long value = strtol(input, &endptr, 10);
-        6:   74:            if (*endptr != '\0' || value < 0 || value > INT_MAX) {
-        2:   75:                return false;
-        -:   76:            }
-        4:   77:            graph[i][j] = (int)value;
-        -:   78:        }
-        -:   79:    }
-        -:   80:
-        1:   81:    return true;
-        -:   82:}
-        -:   83:
-        3:   84:int **allocateGraph(int V) {
-        3:   85:    int **graph = (int **)malloc(V * sizeof(int *));
-       10:   86:    for (int i = 0; i < V; i++) {
-        7:   87:        graph[i] = (int *)malloc(V * sizeof(int));
-        -:   88:    }
-        3:   89:    return graph;
-        -:   90:}
-        -:   91:
-        3:   92:void freeGraph(int **graph, int V) {
-       10:   93:    for (int i = 0; i < V; i++) {
-        7:   94:        free(graph[i]);
-        -:   95:    }
-        3:   96:    free(graph);
-        3:   97:}
-        -:   98:
-        7:   99:int main() {
-        5:  100:    while (true) {
-        -:  101:        int V;
-        7:  102:        printf("Enter the number of vertices in the graph (or type 0 to exit): ");
-        7:  103:        if (scanf("%d", &V) != 1 || V < 0 || V > INT_MAX) {
-        2:  104:            fprintf(stderr, "Invalid number of vertices.\n");
-        -:  105:            // Clear the input buffer
-        3:  106:            while (getchar() != '\n');
-        4:  107:            continue;
-        -:  108:        }
-        -:  109:
-        5:  110:        if (V == 0) {
-        2:  111:            break;
-        -:  112:        }
-        -:  113:
-        3:  114:        int **graph = allocateGraph(V);
-        -:  115:
-        3:  116:        if (!readGraph(graph, V)) {
-        2:  117:            printf("Failed to read the graph. Please try again.\n");
-        2:  118:            freeGraph(graph, V);
-        -:  119:            // Clear the input buffer
-        2:  120:            while (getchar() != '\n');
-        2:  121:            continue;
-        -:  122:        }
-        -:  123:
-        -:  124:        // Run Dijkstra's algorithm from source vertex 0
-        1:  125:        dijkstra(graph, 0, V);
-        1:  126:        freeGraph(graph, V);
-        -:  127:    }
-        -:  128:
-        2:  129:    return 0;
-        -:  130:}
+       2*:   69:                return false;
+        -:   70:            }
+        -:   71:            char *endptr;
+        6:   72:            long value = strtol(input, &endptr, 10);
+        6:   73:            if (*endptr != '\0' || value < 0 || value > INT_MAX) {
+        2:   74:                return false;
+        -:   75:            }
+        4:   76:            graph[i][j] = (int)value;
+        -:   77:        }
+        -:   78:    }
+        -:   79:
+        1:   80:    return true;
+        -:   81:}
+        -:   82:
+        3:   83:int **allocateGraph(int V) {
+        3:   84:    int **graph = (int **)malloc(V * sizeof(int *));
+        9:   85:    for (int i = 0; i < V; i++) {
+        6:   86:        graph[i] = (int *)malloc(V * sizeof(int));
+        -:   87:    }
+        3:   88:    return graph;
+        -:   89:}
+        -:   90:
+        3:   91:void freeGraph(int **graph, int V) {
+        9:   92:    for (int i = 0; i < V; i++) {
+        6:   93:        free(graph[i]);
+        -:   94:    }
+        3:   95:    free(graph);
+        3:   96:}
+        -:   97:
+        6:   98:int main() {
+        5:   99:    while (true) {
+        -:  100:        int V;
+        6:  101:        printf("Enter the number of vertices in the graph (or type 0 to exit): ");
+        6:  102:        if (scanf("%d", &V) != 1 || V < 0 || V > INT_MAX) {
+        2:  103:            fprintf(stderr, "Invalid number of vertices.\n");
+        -:  104:            // Clear the input buffer
+        3:  105:            while (getchar() != '\n');
+        4:  106:            continue;
+        -:  107:        }
+        -:  108:
+        4:  109:        if (V == 0) {
+        1:  110:            break;
+        -:  111:        }
+        -:  112:
+        3:  113:        int **graph = allocateGraph(V);
+        -:  114:
+        3:  115:        if (!readGraph(graph, V)) {
+        2:  116:            printf("Failed to read the graph. Please try again.\n");
+        2:  117:            freeGraph(graph, V);
+        -:  118:            // Clear the input buffer
+        2:  119:            while (getchar() != '\n');
+        2:  120:            continue;
+        -:  121:        }
+        -:  122:
+        -:  123:        // Run Dijkstra's algorithm from source vertex 0
+        1:  124:        dijkstra(graph, 0, V);
+        1:  125:        freeGraph(graph, V);
+        -:  126:    }
+        -:  127:
+        1:  128:    return 0;
+        -:  129:}
