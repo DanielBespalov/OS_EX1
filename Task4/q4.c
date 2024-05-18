@@ -68,8 +68,8 @@ bool readGraph(int** graph, int V)
 
     for (int i = 0; i < V; i++) {
         for (int j = 0; j < V; j++) {
-            char input[10];
-            if (scanf("%9s", input) != 1) {
+            char input[20];
+            if (scanf("%s", input) != 1) {
                 fprintf(stderr, "Invalid input. Please enter integers only.\n");
                 return false;
             }
@@ -87,6 +87,7 @@ bool readGraph(int** graph, int V)
     }
     return true;
 }
+
 
 // Function to allocate memory for the graph
 int** allocateGraph(int V)
@@ -110,18 +111,26 @@ void freeGraph(int** graph, int V)
 // driver's code
 int main()
 {
-    int V;
-    printf("Enter the number of vertices in the graph: ");
-    if (scanf("%d", &V) != 1 || V <= 0) {
-        fprintf(stderr, "Invalid number of vertices.\n");
-        return 1;
-    }
-
-    int** graph = allocateGraph(V);
-
     for (;;) {
+        int V;
+        printf("Enter the number of vertices in the graph (or type 0 to exit): ");
+        if (scanf("%d", &V) != 1 || V < 0) {
+            fprintf(stderr, "Invalid number of vertices.\n");
+            // Clear the input buffer
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF);
+            continue;
+        }
+
+        if (V == 0) {
+            break;
+        }
+
+        int** graph = allocateGraph(V);
+
         if (!readGraph(graph, V)) {
             printf("Failed to read the graph. Please try again.\n");
+            freeGraph(graph, V);
             // Clear the input buffer
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
@@ -130,9 +139,9 @@ int main()
 
         // Run Dijkstra's algorithm from source vertex 0
         dijkstra(graph, 0, V);
-    }
 
-    freeGraph(graph, V);
+        freeGraph(graph, V);
+    }
 
     return 0;
 }
