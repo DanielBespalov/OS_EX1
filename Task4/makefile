@@ -1,11 +1,8 @@
-CC = gcc
-CFLAGS = -Wall -w -g
-
 q4: q4.o
-	$(CC) $(CFLAGS) -o $@ $^ -lm
+	gcc -o q4.c q4.o -fprofile-arcs -ftest-coverage
 
 q4.o: q4.c
-	$(CC) $(CFLAGS) -c $<
+	gcc -c q4.c -fprofile-arcs -ftest-coverage
 
 clean:
 	rm -f q4 *.o
