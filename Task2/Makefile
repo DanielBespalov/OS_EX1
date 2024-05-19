@@ -1,11 +1,11 @@
 CC = gcc
-CFLAGS = -Wall -w -g
+
 
 Poisson: Poisson.o
-	$(CC) $(CFLAGS) -o $@ $^ -lm
+	$(CC) -o $@ $^ -lm
 
 Poisson.o: Poisson.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) -c $<
 
 clean:
 	rm -f Poisson *.o
