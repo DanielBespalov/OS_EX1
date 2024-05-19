@@ -6,7 +6,7 @@ void generateRandomNumbers(int seed, int size, int array[]) {
     srand(seed);
     for (int i = 0; i < size; i++) {
         array[i] = rand() % 100 - seed; 
-    }
+    } 
 }
 
 // Solution 1: O(n) Kadane's Algorithm
@@ -54,26 +54,6 @@ int maxSubArraySum3(int array[], int size) {
     return max_sum;
 }
 
-// Function to run the algorithms and measure time
-void runAlgorithms(int seed, int size) {
-    int *array = malloc(size * sizeof(int));
-    if (array == NULL) {
-        printf("Memory allocation failed\n");
-        return;
-    }
-
-    generateRandomNumbers(seed, size, array);
-
-
-    // Solution 1
-    int max1 = maxSubArraySum1(array, size);
-    // Solution 2
-    int max2 = maxSubArraySum2(array, size);
-    // Solution 3
-    int max3 = maxSubArraySum3(array, size);
-    free(array);
-}
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Usage: %s <seed> <size>\n", argv[0]);
@@ -83,7 +63,21 @@ int main(int argc, char *argv[]) {
     int seed = atoi(argv[1]);
     int size = atoi(argv[2]);
 
-    runAlgorithms(seed, size);
+    int *array = malloc(size * sizeof(int));
+    if (array == NULL) {
+        printf("Memory allocation failed\n");
+        return 0;
+    }
+
+    generateRandomNumbers(seed, size, array);
+    
+    // Solution 1
+    int max1 = maxSubArraySum1(array, size);
+    // Solution 2
+    int max2 = maxSubArraySum2(array, size);
+    // Solution 3
+    int max3 = maxSubArraySum3(array, size);
+    free(array);
 
     return 0;
 }
