@@ -4,21 +4,19 @@ q5: q5.o
 q5.o: q5.c
 	gcc -c -pg q5.c
 
-run_kk: q5
-	./q5 25 100
-
-run_kkk: q5
-	./q5 25 1000
-
-run_kkkk: q5
-	./q5 25 10000
 
 clean:
-	rm -f q5 *.o gmon.out analysis.txt
+	rm -f q5 *.o gmon.out analysis1.txt analysis2.txt analysis3.txt
 
 profile: q5
 	./q5 25 100
+	gprof q5 gmon.out > analysis1.txt
+	cat analysis1.txt
+	
 	./q5 25 1000
+	gprof q5 gmon.out > analysis2.txt
+	cat analysis2.txt
+	
 	./q5 25 10000
-	gprof q5 gmon.out > analysis.txt
-	cat analysis.txt
+	gprof q5 gmon.out > analysis3.txt
+	cat analysis3.txt
